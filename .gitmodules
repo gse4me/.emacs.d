@@ -1,0 +1,6 @@
+[submodule "git_edits/projectile"]
+	path = git_edits/projectile
+	url = https://github.com/gse4me/projectile.git
+[submodule "git_edits/verilog-mode"]
+	path = git_edits/verilog-mode
+	url = https://github.com/veripool/verilog-mode.git
