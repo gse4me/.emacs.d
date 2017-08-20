@@ -17,7 +17,8 @@ Example:
 ;;; Little bit opinionated helper function for package.el users
 ;;
 
-;;;###autoload
+
+;;;###autoloadi
 (defmacro use-package-with-elpa ()
   "Set up use-package to optimal usage with package.el.
 For full documentation on the meaning and usage fo this, please
@@ -62,10 +63,14 @@ called `Byte-compiling with Package.el'."
   (package-initialize)
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
-    (package-install 'use-package)))
+    (package-install 'use-package)
+    ))
 
 (use-package-with-elpa)
 
+
+(use-package bind-key)
+(use-package diminish)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (package-initialize)			      ;;
@@ -77,24 +82,9 @@ called `Byte-compiling with Package.el'."
 ;;   (package-install 'use-package))	      ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst private-dir  (expand-file-name "private" user-emacs-directory))
-(defconst temp-dir (format "%s/cache" private-dir)
-  "Hostname-based elisp temp directories")
 
-(use-package spinner :ensure t)
-(use-package async :ensure t )
 
-(use-package paradox
-  :ensure t
-  :defer t
-  :config
-  (progn
-    (setq paradox-execute-asynchronously t
-          paradox-github-token t)
-    (paradox-enable)
-    )
-  )
 
-(use-package validate :ensure t :demand t)
+
 
 (provide 'config-package)

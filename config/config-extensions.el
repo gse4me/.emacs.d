@@ -1,8 +1,15 @@
-
+(use-package-with-elpa)
 
 (use-package company
+  :diminish company-mode
   :config
   (add-hook 'after-init-hook 'global-company-mode))
+
+
+(use-package company-quickhelp          ; Documentation popups for Company
+  :defer t
+  :if window-system
+  :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (use-package dashboard	     ;;
@@ -11,6 +18,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package ediff
+  :defer t
   :config
   (setq ediff-window-setup-function 'ediff-setup-windows-plain)
   (setq-default ediff-highlight-all-diffs 'nil)
@@ -22,22 +30,39 @@
   :bind
   ("C-=" . er/expand-region))
 
-(use-package flycheck)
+(use-package flycheck
+  :commands flycheck-mode
+  )
 
-(use-package hlinum
-  :config
-  (hlinum-activate))
+;; (use-package hlinum
+;;   :config
+;;   (hlinum-activate))
 
-(use-package linum
+;; (use-package linum
+;;   :config
+;;   (setq linum-format " %4d ")
+;;   (setq linum-delay t)
+;;   ;;(global-linum-mode nil)
+;;   )
+
+
+(use-package nlinum
+  :init
+  (defface nlinum-current-line
+  '((t :inherit linum :weight bold :foreground "green"))
+  "Face for displaying current line.")
+  :bind
+  ([f3] . nlinum-mode)
   :config
-  (setq linum-format " %3d ")
-  (global-linum-mode nil))
+  (setq  nlinum-highlight-current-line t)
+  (setq nlinum-format " %d ")
+  )
+
+
 
 (use-package magit
   :config
-
   (setq magit-completing-read-function 'ivy-completing-read)
-
   :bind
   ;; Magic
   ("C-x g s" . magit-status)
@@ -48,7 +73,16 @@
   ("C-x g e" . magit-ediff-resolve)
   ("C-x g r" . magit-rebase-interactive))
 
-(use-package magit-popup)
+(use-package magit-popup
+  :after magit)
+
+
+(use-package p4
+  :bind-keymap (("C-x p" . p4-prefix-map))
+  :config
+  (setq p4-do-find-file nil )
+  )
+
 
 (use-package multiple-cursors
   :bind
@@ -57,38 +91,16 @@
   ("C-<" . mc/mark-previous-like-this)
   ("C-c C->" . mc/mark-all-like-this))
 
-(use-package treemacs
-  :ensure t
+(use-package eldoc
   :defer t
-  :config
-  (setq treemacs-header-function            #'treemacs--create-header
-        treemacs-follow-after-init          t
-        treemacs-width                      35
-        treemacs-indentation                2
-        treemacs-git-integration            t
-        treemacs-change-root-without-asking nil
-        treemacs-sorting                    'alphabetic-desc
-        treemacs-show-hidden-files          t
-        treemacs-never-persist              nil)
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
-  :bind
-  (:map global-map
-   ([f8]        . treemacs-toggle)
-   ("<C-M-tab>" . treemacs-toggle)
-  ))
+  :diminish eldoc-mode
+  )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package neotree					      ;;
-;;   :config						      ;;
-;;   (setq neo-theme 'arrow ; 'classic, 'nerd, 'ascii, 'arrow ;;
-;; 							      ;;
-;;         neotree-smart-open t				      ;;
-;;         neo-window-fixed-size nil)			      ;;
-;;   ;; Disable linum for neotree			      ;;
-;;   ;(add-hook 'neo-after-create-hook 'disable-neotree-hook) ;;
-;;   )							      ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package abbrev
+  :defer t
+  :ensure nil
+  :diminish abbrev-mode
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (use-package org									   ;;
@@ -115,14 +127,7 @@
 
 (use-package page-break-lines)
 
-(use-package projectile
-  :config
-  (setq projectile-known-projects-file
-        (expand-file-name "projectile-bookmarks.eld" temp-dir))
 
-  (setq projectile-completion-system 'ivy)
-
-  (projectile-mode))
 
 (use-package recentf
   :config
@@ -132,16 +137,15 @@
 (use-package smartparens)
 
 (use-package undo-tree
+  :diminish undo-tree-mode
   :config
   ;; Remember undo history
   (setq
    undo-tree-auto-save-history nil
-   undo-tree-history-directory-alist `(("." . ,(concat temp-dir "/undo/"))))
+   undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "/undo/"))))
   (global-undo-tree-mode 1))
 
-(use-package which-key
-  :config
-  (which-key-mode))
+
 
 (use-package windmove
   :bind
@@ -150,25 +154,63 @@
   ("C-x <left>" . windmove-left)
   ("C-x <right>" . windmove-right))
 
-(use-package wgrep)
+
+(use-package grep
+  :defer t
+  :config
+  (nconc grep-find-ignored-files
+         '("TAGS" "GTAGS" "GRTAGS" "GSYMS" "GPATH" "GTAGSROOT"))
+
+  (use-package wgrep :defer t))
+
+
+
+
 
 (use-package yasnippet
-  :config
-  (yas-global-mode 1))
+  :defer t
+  :init
+  (add-hook 'python-mode #'yas-minor-mode)
+  ;;add all needed modes here
+  :config (yas-reload-all))
+
+
+ (use-package which-key
+   :diminish which-key-mode
+   :config
+   (which-key-mode))
+
+;; Use nasm-mode because it provides better x86 formatting
+;;(use-package nasm-mode
+;;  :mode "\\.asm")
 
 
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package mwheel							    ;;
-;;   :defer t								    ;;
-;;   :config								    ;;
-;;   ;; Smooth-ish mouse scrolling					    ;;
-;;   (setq mouse-wheel-progressive-speed nil				    ;;
-;;         mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))) ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+(use-package verilog-mode
+  :load-path "~/.emacs.d/git_edits/verilog-mode"
+  :mode (("\\.[st]*v[hp]*\\'" . verilog-mode) ; .v, .sv, .svh, .tv, .vp
+         ("\\.psl\\'"         . verilog-mode)  ; .psl
+         ("\\.[xd]\\'"        . verilog-mode) ; .x, .d
+	 ("\\.decl\\'"        . verilog-mode)) ; .decl
+  ;;:config
+  ;;   ;; User customization for Verilog mode
+  ;;   (setq verilog-indent-level             3
+  ;;         verilog-indent-level-module      3
+  ;;         verilog-indent-level-declaration 3
+  ;;         verilog-indent-level-behavioral  3
+  ;;         verilog-indent-level-directive   1
+  ;;         verilog-case-indent              2
+  ;;         verilog-auto-newline             t
+  ;;         verilog-auto-indent-on-newline   t
+  ;;         verilog-tab-always-indent        t
+  ;;         verilog-auto-endcomments         t
+  ;;         verilog-minimum-comment-distance 40
+  ;;         verilog-indent-begin-after-if    t
+  ;;         verilog-auto-lineup              'declarations
+  ;;         verilog-highlight-p1800-keywords nil
+  ;;         verilog-linter                   "my_lint_shell_command"
+  ;;         )
+  )
 
 
 (provide 'config-extensions)

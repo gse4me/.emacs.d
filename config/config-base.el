@@ -1,3 +1,5 @@
+(use-package-with-elpa)
+
 ;; Core settings
 ;; UTF-8 please
 (set-charset-priority 'unicode)
@@ -8,9 +10,10 @@
 (prefer-coding-system        'utf-8)   ; with sugar on top
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
+
+
 ;; Emacs customizations
-(setq
-					;confirm-kill-emacs                  'y-or-n-p
+(setq				;confirm-kill-emacs                  'y-or-n-p
  global-hl-line-mode                 t
  truncate-lines                      t
  visual-line-mode                    t
@@ -19,7 +22,7 @@
  frame-title-format                  "%b %+%+ %f"
  confirm-nonexistent-file-or-buffer  t
  save-interprogram-paste-before-kill t
- ;mouse-yank-at-point                 t
+					;mouse-yank-at-point                 t
  require-final-newline               t
  visible-bell                        nil
  ring-bell-function                  'ignore
@@ -38,14 +41,10 @@
  fringes-outside-margins            t
  select-enable-clipboard            t
  switch-to-buffer-preserve-window-point t
-					;use-package-always-ensure          t
+ jit-lock-chunk-size                    50000  ; how much to fontify
+ ;;use-package-always-ensure          t
  )
 
-;; Bookmarks
-(setq
- ;; persistent bookmarks
- bookmark-save-flag                      t
- bookmark-default-file              (concat temp-dir "/bookmarks"))
 
 ;; Backups , use nil to disable
 (setq
@@ -53,17 +52,17 @@
  backup-inhibited                   nil
  make-backup-files                  nil
  auto-save-default                  nil
- auto-save-list-file-name           (concat temp-dir "/autosave")
  make-backup-files                  nil
  create-lockfiles                   nil
- backup-directory-alist            `((".*" . ,(concat temp-dir "/backup/")))
- auto-save-file-name-transforms    `((".*" ,(concat temp-dir "/auto-save-list/") t)))
+ )
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (global-auto-revert-mode t)
 
+
 ;; Disable toolbar & menubar
-(menu-bar-mode -1)
+
+;;(menu-bar-mode -1)
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode)
@@ -72,6 +71,7 @@
   (horizontal-scroll-bar-mode -1))
 
 (show-paren-mode 1)
+;;(which-function-mode 1)
 
 ;; Delete trailing whitespace before save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

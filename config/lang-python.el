@@ -1,12 +1,6 @@
-;;; package --- python configs
-;;; Commentary:
-;;; Contains my python configs
-
-;;; Code:
-
+(use-package-with-elpa)
 
 (use-package anaconda-mode
-  :ensure t
   :commands anaconda-mode
   :diminish anaconda-mode
   :init
@@ -17,8 +11,8 @@
 
 
 (use-package company-anaconda
-  :ensure t
   :init (add-to-list 'company-backends '(company-anaconda :with company-capf))
+  :after anaconda-mode
   )
 
 ;;

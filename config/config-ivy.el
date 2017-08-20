@@ -1,60 +1,33 @@
+(use-package-with-elpa)
 
-(use-package flx :ensure t )
-
-(use-package swiper :ensure t :defer t)
+(use-package flx :defer t)
+(use-package swiper :defer t)
 
 (use-package uniquify
+  :no-require t
   :ensure nil
   :config
   (setq-default uniquify-buffer-name-style 'forward))
 
 (use-package counsel
-  :ensure t
-  :config
-  (progn
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  ;  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  ;  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  ;  (global-set-key (kbd "<f1> l") 'counsel-find-library)
-  ;  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  ;  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-
-    (global-set-key (kbd "C-c g") 'counsel-git)
-    (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-ag)
-    (global-set-key (kbd "C-x l") 'counsel-locate)
-    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    )
-  )
-
-
-(use-package ivy
-  :ensure try
   :bind
-  ("C-x s" . swiper)
-  ("C-x C-r" . ivy-resume)
-  :config
-  (progn
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) ")
-    (setq ivy-re-builders-alist
-          '((read-file-name-internal . ivy--regex-fuzzy)
-            (counsel-M-x . ivy--regex-fuzzy)
-            (t . ivy--regex-plus)))
-    (setq ivy-initial-inputs-alist nil)
-    (setq ivy-extra-directories nil)
-    )
+  ( "M-x" . counsel-M-x)
+  ( "C-x C-f" . counsel-find-file)
+  ( "C-c g". counsel-git)
+  ( "C-c j" . counsel-git-grep)
+  ( "C-c k" . counsel-ag)
+  ( "C-x l" . counsel-locate)
+  ( "C-S-o" . counsel-rhythmbox)
+  ( "C-c C-r" . ivy-resume)
   )
-                                        ;(setq ivy-initial-inputs-alist nil) use above so no ^ will be used when starting
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; !!! also uses the (setq ivy-extra-directories nil) from above
-;; Instead of opening a fodler in buffer mode, just go into it and create new candidates for completion														     ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Counsel makes use of smex
+(use-package smex
+  :init
+  (setq smex-history-length 20)
+  :defer t
+  )
+
 
 (defun eh-ivy-open-current-typed-path ()
   (interactive)
@@ -65,10 +38,60 @@
       (delete-minibuffer-contents)
       (ivy--done path))))
 
-(define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done)
-(define-key ivy-minibuffer-map (kbd "C-f") 'eh-ivy-open-current-typed-path)
+;; Use C-j for immediate termination with the current value, and RET
+;; for continuing completion for that directory. This is the ido
+;; behaviour.
+;;(define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+;;(define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
 
 
+(use-package ivy
+  :init
+  (ivy-mode 1)
+  :diminish ivy-mode
+  :bind(
+	("C-x s" . swiper)
+	("C-x C-r" . ivy-resume)
+	:map ivy-minibuffer-map
+	("<return>" . ivy-alt-done)
+	("C-f" . eh-ivy-open-current-typed-pat))
+  :config
+  (progn
+    (setq ivy-use-virtual-buffers t
+	  ivy-count-format "(%d/%d) "
 
+	  ;; (setq ivy-re-builders-alist
+	  ;; 	  '((read-file-name-internal . ivy--regex-fuzzy)
+	  ;; 	    (counsel-M-x . ivy--regex-fuzzy)
+	  ;; 	    (t . ivy--regex-plus)))
+
+	  ivy-re-builders-alist
+	  '((counsel-projectile-find-file . ivy--regex-plus)
+	    (t . ivy--regex-fuzzy))
+	  ivy-initial-inputs-alist nil
+	  ivy-extra-directories nil)
+    )
+  )
+;;(setq ivy-initial-inputs-alist nil) use above so no ^ will be used when starting
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; !!! also uses the (setq ivy-extra-directories nil) from above
+;; Instead of opening a fodler in buffer mode, just go into it and create new candidates for completion														     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package ivy-rich ;; This may eventually be merged into Ivy Master
+  :config
+  (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+  (setq ivy-virtual-abbreviate 'full
+	ivy-rich-switch-buffer-align-virtual-buffer t
+	ivy-rich-abbreviate-paths t
+	ivy-rich-switch-buffer-project-max-length 56
+	ivy-rich-switch-buffer-name-max-length 88
+	ivy-rich-switch-buffer-delimiter "|")
+  )
+
+(use-package ivy-historian              ; Store minibuffer candidates
+  :after ivy
+  :config (ivy-historian-mode t))
 
 (provide 'config-ivy)
