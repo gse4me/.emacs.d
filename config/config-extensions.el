@@ -1,8 +1,16 @@
 (use-package-with-elpa)
 
+(defun indent-or-complete ()
+  "Indent or complete via company-mode."
+  (interactive)
+  (if (looking-at "\\_>")
+      (company-complete-common)
+    (indent-according-to-mode)))
+
 (use-package company
   :diminish company-mode
-  :config
+  :bind ("TAB" . indent-or-complete)
+  :init
   (add-hook 'after-init-hook 'global-company-mode))
 
 
@@ -49,8 +57,8 @@
 (use-package nlinum
   :init
   (defface nlinum-current-line
-  '((t :inherit linum :weight bold :foreground "green"))
-  "Face for displaying current line.")
+    '((t :inherit linum :weight bold :foreground "green"))
+    "Face for displaying current line.")
   :bind
   ([f3] . nlinum-mode)
   :config
@@ -89,7 +97,8 @@
   ("C-S-c C-S-c" . mc/edit-lines)
   ("C->" . mc/mark-next-like-this)
   ("C-<" . mc/mark-previous-like-this)
-  ("C-c C->" . mc/mark-all-like-this))
+  ("C-c C->" . mc/mark-all-like-this)
+  )
 
 (use-package eldoc
   :defer t
@@ -161,7 +170,8 @@
   (nconc grep-find-ignored-files
          '("TAGS" "GTAGS" "GRTAGS" "GSYMS" "GPATH" "GTAGSROOT"))
 
-  (use-package wgrep :defer t))
+  (use-package wgrep :defer t)
+  )
 
 
 
@@ -171,14 +181,13 @@
   :defer t
   :init
   (add-hook 'python-mode #'yas-minor-mode)
-  ;;add all needed modes here
   :config (yas-reload-all))
 
 
- (use-package which-key
-   :diminish which-key-mode
-   :config
-   (which-key-mode))
+(use-package which-key
+  :diminish which-key-mode
+  :config
+  (which-key-mode))
 
 ;; Use nasm-mode because it provides better x86 formatting
 ;;(use-package nasm-mode
@@ -192,6 +201,7 @@
          ("\\.psl\\'"         . verilog-mode)  ; .psl
          ("\\.[xd]\\'"        . verilog-mode) ; .x, .d
 	 ("\\.decl\\'"        . verilog-mode)) ; .decl
+
   ;;:config
   ;;   ;; User customization for Verilog mode
   ;;   (setq verilog-indent-level             3
@@ -211,6 +221,17 @@
   ;;         verilog-linter                   "my_lint_shell_command"
   ;;         )
   )
+
+(use-package aggressive-indent
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
+
+
+
+(use-package elisp-slime-nav
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
 
 
 (provide 'config-extensions)
