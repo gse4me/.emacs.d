@@ -2,8 +2,38 @@
 
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 
-(use-package ggtags )
+(use-package ggtags
+  :commands (ggtags-mode)
+  :config
+  (add-to-list 'company-backends '(company-gtags))
+  (defun ggtags-tag-at-point ()
+    (pcase (funcall ggtags-bounds-of-tag-function)
+      (`(,beg . ,end)
+       (if (eq ?` (string-to-char (buffer-substring beg end)))
+	   ;; If `(buffer-substring beg end)' returns "`uvm_info" (for example),
+	   ;; discard the ` and return just "uvm_info"
+	   (buffer-substring (1+ beg) end)
+	 ;; else return the whole `(buffer-substring beg end)'
+	 (buffer-substring beg end)))))
+  )
 
+(use-package counsel-gtags
+  :diminish (counsel-gtags-mode . "CG")
+  :after ggtags
+  :config
+  (progn
+
+    (add-hook 'c-mode-hook 'counsel-gtags-mode)
+    (add-hook 'c++-mode-hook 'counsel-gtags-mode)
+
+    ;; (with-eval-after-load 'counsel-gtags
+    ;;   (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
+    ;;   (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
+    ;;   (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
+    ;;   (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward))
+    )
+
+  )
 
 (defun use-rtags (&optional useFileManager)
   (and (rtags-executable-find "rc")
@@ -71,8 +101,8 @@
     (add-hook 'c++-mode-hook 'rtags-eldoc-mode)
     (rtags-enable-standard-keybindings)
     (setq rtags-display-result-backend 'ivy)
-    ;; (setq rtags-autostart-diagnostics t)
-    ;; (rtags-diagnostics)
+    (setq rtags-autostart-diagnostics t)
+    (rtags-diagnostics)
     (setq rtags-completions-enabled t)
     (setq rtags-imenu-syntax-highlighting t)
     ;;(setq rtags-tooltips-enabled t)
@@ -92,7 +122,7 @@
 (use-package company-c-headers
   :after rtags
   :config
-  (add-to-list 'company-backends 'company-c-headers)
+  (add-to-list 'company-backends '(company-c-headers))
   )
 
 (use-package cc-mode
