@@ -2,10 +2,12 @@
 
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 
+;;(require 'cl)
+
 (use-package ggtags
   :commands (ggtags-mode)
   :config
-  (add-to-list 'company-backends '(company-gtags))
+  (add-to-list 'company-backends 'company-gtags)
   (defun ggtags-tag-at-point ()
     (pcase (funcall ggtags-bounds-of-tag-function)
       (`(,beg . ,end)
@@ -116,14 +118,15 @@
 (use-package company-rtags
   :after rtags
   :config
-  (add-to-list 'company-backends '(company-rtags))
+  (add-to-list 'company-backends '( :separate company-rtags company-dabbrev-code company-keywords))
+  ;;(add-to-list 'company-backends 'company-rtags)
   )
 
-(use-package company-c-headers
-  :after rtags
-  :config
-  (add-to-list 'company-backends '(company-c-headers))
-  )
+;; (use-package company-c-headers
+;;   :after rtags
+;;   :config
+;;   (add-to-list 'company-backends 'company-c-headers)
+;;   )
 
 (use-package cc-mode
   :defer t

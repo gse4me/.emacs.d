@@ -90,8 +90,9 @@
 	ivy-rich-switch-buffer-delimiter "|")
   )
 
-(use-package ivy-historian              ; Store minibuffer candidates
-  :after ivy
-  :config (ivy-historian-mode t))
+;;too much cpu
+;; (use-package ivy-historian              ; Store minibuffer candidates
+;;   :after ivy
+;;   :config (ivy-historian-mode t))
 
 (provide 'config-ivy)

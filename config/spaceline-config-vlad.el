@@ -8,63 +8,74 @@
 ;; (face 'vlad/spaceline-read-only :background (hsl 300 0.15 0.5) :foreground "gray80" :box `(:line-width -2 :color ,(hsl 300 0.4 0.5)))
 ;; (face 'vlad/spaceline-modified :background "GoldenRod2" :foreground "black")
 
-(spaceline-define-segment vlad/line-column
-  "The current line and column numbers, or `(current page/number of pages)`
+
+(spaceline-define-segment current-company-backend
+  (when (bound-and-true-p company-candidates)
+    (if (consp company-backend)
+	(company--group-lighter (nth company-selection
+				     company-candidates)
+				company-lighter-base)
+      (symbol-name company-backend))))
+
+
+   (spaceline-define-segment vlad/line-column
+     "The current line and column numbers, or `(current page/number of pages)`
 in pdf-view mode (enabled by the `pdf-tools' package)."
-  (if (eq major-mode 'pdf-view-mode)
-      (spaceline--pdfview-page-number)
-    "<L:%l C:%2c>"))
+     (if (eq major-mode 'pdf-view-mode)
+	 (spaceline--pdfview-page-number)
+       "<L:%l C:%2c>"))
 
-(spaceline-define-segment vlad/buffer-modified
-  "Buffer status (read-only, modified), with color"
-  (cond (buffer-read-only (propertize "RO" ))
-	((buffer-modified-p) (propertize "MO" ))
-	(t "  ")))
+   (spaceline-define-segment vlad/buffer-modified
+     "Buffer status (read-only, modified), with color"
+     (cond (buffer-read-only (propertize "RO" ))
+	   ((buffer-modified-p) (propertize "MO" ))
+	   (t "  ")))
 
-(defun spaceline--theme (left second-left &rest additional-segments)
-  "Convenience function for the spacemacs and emacs themes."
-  (spaceline-install
-    `(,left
-      ;;(anzu :priority 4)
-      auto-compile
-      ,second-left
-      (
-       (
-	point-position
-	vlad/line-column
-	(buffer-size :priority 5)
-	(buffer-position :priority 0)
-	(hud :priority 0)
-	)
+   (defun spaceline--theme (left second-left &rest additional-segments)
+     "Convenience function for the spacemacs and emacs themes."
+     (spaceline-install
+       `(,left
+	 ;;(anzu :priority 4)
+	 auto-compile
+	 ,second-left
+	 (
+	  (
+	   point-position
+	   vlad/line-column
+	   (buffer-size :priority 5)
+	   (buffer-position :priority 0)
+	   (hud :priority 0)
+	   )
+	  )
+
+	 (process :when active)
+	 (
+	  (flycheck-error flycheck-warning flycheck-info)
+	  :when active
+	  :priority 3
+	  )
+	 (minor-modes :when active)
+	 (mu4e-alert-segment :when active)
+	 (erc-track :when active)
+	 (version-control :when active
+			  :priority 7)
+	 (org-pomodoro :when active)
+	 (org-clock :when active)
+	 nyan-cat
+	 which-function
+	 (python-pyvenv :fallback python-pyenv)
+	 purpose
+	 current-company-backend
+	 (battery :when active)
+	 (selection-info :priority 2)
+	 input-method
+	 (global :when active)
+	 ,@additional-segments
+	 )
+       `()
        )
 
-      (process :when active)
-      (
-       (flycheck-error flycheck-warning flycheck-info)
-       :when active
-       :priority 3
-       )
-      (minor-modes :when active)
-      (mu4e-alert-segment :when active)
-      (erc-track :when active)
-      (version-control :when active
-		       :priority 7)
-      (org-pomodoro :when active)
-      (org-clock :when active)
-      nyan-cat
-      which-function
-      (python-pyvenv :fallback python-pyenv)
-      purpose
-      (battery :when active)
-      (selection-info :priority 2)
-      input-method
-      (global :when active)
-      ,@additional-segments
-      )
-    `()
-    )
-
-  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
+     (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
 
 (defun spaceline-spacemacs-theme (&rest additional-segments)
   "Install the modeline used by Spacemacs.

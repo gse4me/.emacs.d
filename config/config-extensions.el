@@ -7,17 +7,31 @@
       (company-complete-common)
     (indent-according-to-mode)))
 
+
+
+
 (use-package company
   :diminish company-mode
   :bind ("TAB" . indent-or-complete)
   :init
-  (add-hook 'after-init-hook 'global-company-mode))
+  (setq company-async-timeout 6)
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
+  (setq
+   ;;company-show-numbers t
+   company-require-match 'never
+   company-tooltip-idle-delay 0.5
+   company-tooltip-limit 15
+   company-dabbrev-downcase 0
+   ;;company-async-wait 0.5
+   )
+  )
 
 
-(use-package company-quickhelp          ; Documentation popups for Company
-  :defer t
-  :if window-system
-  :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
+  (use-package company-quickhelp          ; Documentation popups for Company
+    :defer t
+    :if window-system
+    :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (use-package dashboard	     ;;
