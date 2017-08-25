@@ -12,9 +12,8 @@
 
 (use-package company
   :diminish company-mode
-  :bind ("TAB" . indent-or-complete)
+  :bind ("TAB" . company-indent-or-complete-common)
   :init
-  (setq company-async-timeout 6)
   (add-hook 'after-init-hook 'global-company-mode)
   :config
   (setq
@@ -23,6 +22,7 @@
    company-tooltip-idle-delay 0.5
    company-tooltip-limit 15
    company-dabbrev-downcase 0
+   company-async-timeout 10
    ;;company-async-wait 0.5
    )
   )

@@ -38,7 +38,7 @@
   (require 'config-modeline-spaceline)
   (require 'config-font-lock)
 
-  ;;(require 'lang-python)
+  (require 'lang-python)
   ;;(require 'lang-cpp)
   ;;(require 'lang-ruby)
   (require 'lang-cpp-rtags)
@@ -46,8 +46,19 @@
 
   (require 'config-global-keys)
   (require 'config-work)
-
   )
+
+  ;; (use-package pdf-tools
+  ;;   :ensure t)
+
+  ;; (use-package x86-lookup
+  ;;   :ensure t
+  ;;   :init
+
+  ;;   (setq x86-lookup-browse-pdf-function 'x86-lookup-browse-pdf-pdf-tools)
+  ;;   )
+
+  ;; )
 ;;(require 'lang-ruby)
 
 ;;(setq scroll-conservatively 101) ;; move minimum when cursor exits view, instead of recentering

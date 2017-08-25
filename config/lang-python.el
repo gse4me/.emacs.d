@@ -1,7 +1,7 @@
 (use-package-with-elpa)
 
 (use-package anaconda-mode
-  :commands anaconda-mode
+  :defer t
   :diminish anaconda-mode
   :init
   (progn
@@ -11,8 +11,10 @@
 
 
 (use-package company-anaconda
-  :init (add-to-list 'company-backends '(company-anaconda :with company-capf))
   :after anaconda-mode
+  :config
+  (add-to-list 'company-backends '(company-anaconda :with company-capf))
+  (setq company-anaconda-case-insensitive nil)
   )
 
 ;;
