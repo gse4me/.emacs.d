@@ -1,10 +1,5 @@
 (use-package-with-elpa)
 
-;; use one folder for all save/history/cache files
-(defconst my-savefile-dir (expand-file-name "savefile" user-emacs-directory))
-
-(unless (file-exists-p my-savefile-dir)
-  (make-directory my-savefile-dir))
 
 (use-package projectile
   :load-path "~/.emacs.d/git_edits/projectile"
@@ -48,6 +43,19 @@
 ;; (use-package ibuffer-vc         ;
 ;;   :defer t
 ;;   :init (add-hook 'ibuffer-hook #'ibuffer-vc-set-filter-groups-by-vc-root))
+
+
+(use-package dashboard
+  :config
+  (setq
+   dashboard-startup-banner nil
+   dashboard-items '((recents  . 10)
+		     (projects . 10)
+		     (bookmarks . 10)
+		     ))
+  (dashboard-setup-startup-hook)
+
+  )
 
 
 (provide 'config-projects)

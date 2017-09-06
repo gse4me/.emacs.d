@@ -83,7 +83,8 @@ in pdf-view mode (enabled by the `pdf-tools' package)."
 ADDITIONAL-SEGMENTS are inserted on the right, between `global' and
 `buffer-position'."
   (apply 'spaceline--theme
-         '((persp-name
+         '((evil-state
+	    persp-name
             workspace-number
 	    window-number
 	    vlad/buffer-modified

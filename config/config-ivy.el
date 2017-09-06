@@ -24,7 +24,10 @@
 ;; Counsel makes use of smex
 (use-package smex
   :init
-  (setq smex-history-length 20)
+  (setq
+   smex-history-length 20
+   smex-save-file (expand-file-name  "smex-items" my-savefile-dir)
+   )
   :defer t
   )
 
@@ -54,7 +57,7 @@
 	("C-x C-r" . ivy-resume)
 	:map ivy-minibuffer-map
 	("<return>" . ivy-alt-done)
-	("C-f" . eh-ivy-open-current-typed-pat))
+	("C-f" . eh-ivy-open-current-typed-path))
   :config
   (progn
     (setq ivy-use-virtual-buffers t

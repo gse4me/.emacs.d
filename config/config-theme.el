@@ -1,5 +1,12 @@
 (use-package-with-elpa)
 
+(use-package zenburn-theme
+  :defer t
+  )
+
+(use-package solarized-theme
+  :defer t
+  )
 
 (use-package dracula-theme
   :defer t

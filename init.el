@@ -2,11 +2,9 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-					;(package-initialize)
+;;(package-initialize)
 
 ;; Increase gc-cons-threshold, depending on your system you may set it back to a lower value
-;;(setq gc-cons-threshold 100000000)
-
 (setq gc-cons-threshold most-positive-fixnum)
 (add-hook 'after-init-hook #'(lambda ()
 			       ;; restore after startup
@@ -21,6 +19,13 @@
 
 (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
+;; use one folder for all save/history/cache files
+
+(defconst my-savefile-dir (concat "/tmp/em." (user-login-name)))
+(unless (file-exists-p my-savefile-dir)
+  (make-directory my-savefile-dir))
+
 
 
 (add-to-list 'load-path (concat user-emacs-directory "config"))
@@ -43,23 +48,14 @@
   ;;(require 'lang-ruby)
   (require 'lang-cpp-rtags)
   (require 'lang-yaml)
+  ;;(require 'lang-ruby)
 
   (require 'config-global-keys)
   (require 'config-work)
+
+  ;;(require 'config-evil)
   )
 
-  ;; (use-package pdf-tools
-  ;;   :ensure t)
-
-  ;; (use-package x86-lookup
-  ;;   :ensure t
-  ;;   :init
-
-  ;;   (setq x86-lookup-browse-pdf-function 'x86-lookup-browse-pdf-pdf-tools)
-  ;;   )
-
-  ;; )
-;;(require 'lang-ruby)
 
 ;;(setq scroll-conservatively 101) ;; move minimum when cursor exits view, instead of recentering
 ;;(setq mouse-wheel-scroll-amount '(1)) ;; mouse scroll moves 1 line at a time, instead of 5 lines

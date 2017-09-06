@@ -100,9 +100,10 @@
 
 
 (use-package p4
+  :demand t
   :bind-keymap (("C-x p" . p4-prefix-map))
-  :config
-  (setq p4-do-find-file nil )
+  ;; :config
+  ;;(setq p4-do-find-file nil )
   )
 
 
@@ -154,7 +155,7 @@
 
 (use-package recentf
   :config
-  (setq recentf-save-file (recentf-expand-file-name "~/.emacs.d/private/cache/recentf"))
+  (setq recentf-save-file (expand-file-name "recentf" my-savefile-dir))
   (recentf-mode 1))
 
 (use-package smartparens)

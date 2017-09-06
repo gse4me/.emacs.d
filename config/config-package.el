@@ -68,6 +68,7 @@ called `Byte-compiling with Package.el'."
 
 (use-package-with-elpa)
 
+;;(setq use-package-always-demand (daemonp))
 
 (use-package bind-key)
 (use-package diminish)

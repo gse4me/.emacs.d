@@ -3,10 +3,10 @@
 (use-package treemacs
   :config
   (treemacs--setup-icon treemacs-icon-cpp        "cpp.png"        "cc" "h" )
-  (setq treemacs-header-function            #'treemacs--create-header
+  (setq treemacs-header-function            #'treemacs--create-header-projectile
         treemacs-follow-after-init          t
 	treemacs-change-root-without-asking t
-        treemacs-width                      50
+        treemacs-width                      60
         treemacs-indentation                2
         treemacs-git-integration            t
         treemacs-sorting                    'alphabetic-desc

@@ -1,15 +1,8 @@
-
-
-
-
-
-
-
 ;;<USER CFG>
 ;;comment below to scroll faster in large files (.c/.cc/.cpp)
 ;;the file will load slower because more of it will be fontified
 ;;with this commented the load is faster but scroll is weak
-					;(setq jit-lock-chunk-size 50000)
+(setq jit-lock-chunk-size 5000)
 
 
 (add-to-list 'auto-mode-alist '("\\.xml\\'" . xml-mode))
@@ -19,8 +12,7 @@
 (add-to-list 'auto-mode-alist '("\\.modulefile\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("setup.proj\\'" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.dj\\'" . ruby-mode))
-
-
+(add-to-list 'auto-mode-alist '("\\Makefile'" . sh-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;coloring for df logs;;;;;;;;;;;;;;;;;;;;;;;;;;
 
