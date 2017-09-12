@@ -1,44 +1,48 @@
-(use-package-with-elpa)
+;;(use-package-with-elpa)
 
-(use-package treemacs
-  :config
-  (treemacs--setup-icon treemacs-icon-cpp        "cpp.png"        "cc" "h" )
-  (setq treemacs-header-function            #'treemacs--create-header-projectile
-        treemacs-follow-after-init          t
-	treemacs-change-root-without-asking t
-        treemacs-width                      60
-        treemacs-indentation                2
-        treemacs-git-integration            t
-        treemacs-sorting                    'alphabetic-desc
-        treemacs-show-hidden-files          t
-        treemacs-never-persist              nil
-        treemacs-goto-tag-strategy          'refetch-index )
-  (treemacs-follow-mode)
-  (treemacs-filewatch-mode)
-  :bind
-  (:map global-map
-	([f8]        . treemacs-toggle)
-	([f9]        . treemacs-find-file)
-	)
-  )
-
-
-
-;; (use-package neotree
-;;   :config						      ;;
-;;   (setq neo-theme 'arrow ; 'classic, 'nerd, 'ascii, 'arrow ;;
-;; 	;;
-;;         neotree-smart-open t				      ;;
-;;         neo-window-fixed-size nil)
-
+;; (use-package treemacs
+;;   :config
+;;   (treemacs--setup-icon treemacs-icon-cpp        "cpp.png"        "cc" "h" )
+;;   (setq treemacs-header-function            #'treemacs--create-header-projectile
+;;         treemacs-follow-after-init          t
+;; 	treemacs-change-root-without-asking t
+;;         treemacs-width                      60
+;;         treemacs-indentation                2
+;;         treemacs-git-integration            t
+;;         treemacs-sorting                    'alphabetic-desc
+;;         treemacs-show-hidden-files          t
+;;         treemacs-never-persist              nil
+;;         treemacs-goto-tag-strategy          'refetch-index )
+;;   (treemacs-follow-mode)
+;;   (treemacs-filewatch-mode)
 ;;   :bind
 ;;   (:map global-map
-;;     	([f9]        . neotree-toggle))
-
-;;   ;; Disable linum for neotree			      ;;
-;; 					;(add-hook 'neo-after-create-hook 'disable-neotree-hook) ;;
+;; 	([f8]        . treemacs-toggle)
+;; 	([f9]        . treemacs-find-file)
+;; 	)
 ;;   )
-;;
+
+
+
+(use-package neotree
+  :config
+  (setq neo-theme 'arrow ; 'classic, 'nerd, 'ascii, 'arrow ;;
+        neotree-smart-open t
+	projectile-switch-project-action 'neotree-projectile-action
+	neo-window-width 60
+        neo-window-fixed-size nil
+	neo-show-updir-line t
+	neo-force-change-root t
+	)
+
+  :bind
+  (:map global-map
+    	([f9]        . neotree-toggle))
+
+  ;; Disable linum for neotree			      ;;
+					;(add-hook 'neo-after-create-hook 'disable-neotree-hook) ;;
+  )
+
 
 (use-package winum
   ;;:init

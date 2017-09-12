@@ -1,4 +1,4 @@
-(use-package-with-elpa)
+;;(use-package-with-elpa)
 
 (use-package flx :defer t)
 (use-package swiper :defer t)
@@ -86,10 +86,10 @@
   :config
   (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
   (setq ivy-virtual-abbreviate 'full
-	ivy-rich-switch-buffer-align-virtual-buffer t
+	ivy-rich-switch-buffer-align-virtual-buffer nil
 	ivy-rich-abbreviate-paths t
-	ivy-rich-switch-buffer-project-max-length 56
-	ivy-rich-switch-buffer-name-max-length 88
+	ivy-rich-switch-buffer-project-max-length 75
+	ivy-rich-switch-buffer-name-max-length 80
 	ivy-rich-switch-buffer-delimiter "|")
   )
 

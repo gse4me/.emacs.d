@@ -1,9 +1,10 @@
-(use-package-with-elpa)
+;;(use-package-with-elpa)
 
 
 (use-package projectile
   :load-path "~/.emacs.d/git_edits/projectile"
   ;; :defer 0.2
+  :diminish projectile-mode
   :init
   (setq projectile-enable-caching t
 	projectile-completion-system 'ivy
@@ -11,10 +12,11 @@
 	projectile-cache-file (expand-file-name  "projectile.cache" my-savefile-dir)
 	projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" my-savefile-dir)
 	;;projectile-mode-line '(:eval (format " [%s] " (projectile-project-name)))
-	projectile-mode-line '(:eval (list " ["
-					   (propertize (projectile-project-name)
-						       'face '(:foreground "#e5e500"))
-					   "] ")))
+	;; projectile-mode-line '(:eval (list " ["
+	;; 				   (propertize (projectile-project-name)
+	;; 					       'face '(:foreground "#e5e500"))
+	;; 				   "] "))
+	)
   :config
   (progn
     ;;(add-to-list 'projectile-project-root-files "P4CONFIG")

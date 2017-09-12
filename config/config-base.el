@@ -1,4 +1,4 @@
-(use-package-with-elpa)
+;;(use-package-with-elpa)
 
 ;; Core settings
 ;; UTF-8 please
@@ -10,7 +10,12 @@
 (prefer-coding-system        'utf-8)   ; with sugar on top
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
-
+(setq ibuffer-formats
+      '((mark modified read-only " "
+              (name 30 30 :left :elide) " "
+              (size 12 -1 :right) " "
+              (mode 16 16 :left :elide) " " filename-and-process)
+        (mark " " (name 16 -1) " " filename)))
 
 ;; Emacs customizations
 (setq				;confirm-kill-emacs                  'y-or-n-p

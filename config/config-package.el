@@ -66,7 +66,7 @@ called `Byte-compiling with Package.el'."
     (package-install 'use-package)
     ))
 
-(use-package-with-elpa)
+;;(use-package-with-elpa)
 
 ;;(setq use-package-always-demand (daemonp))
 

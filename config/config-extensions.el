@@ -1,4 +1,4 @@
-(use-package-with-elpa)
+;;(use-package-with-elpa)
 
 (defun indent-or-complete ()
   "Indent or complete via company-mode."
@@ -17,12 +17,13 @@
   (add-hook 'after-init-hook 'global-company-mode)
   :config
   (setq
-   ;;company-show-numbers t
+   company-show-numbers t
    company-require-match 'never
    company-tooltip-idle-delay 0.5
    company-tooltip-limit 15
    company-dabbrev-downcase 0
    company-async-timeout 10
+   company-abort-manual-when-too-short t
    ;;company-async-wait 0.5
    )
   )
