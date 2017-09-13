@@ -15,29 +15,31 @@
         (setq evil-leader/in-all-states t)
         ;; keyboard shortcuts
         (evil-leader/set-key
-	  "a" 'ag-project
-	  "A" 'ag
-	  "b" 'ido-switch-buffer
-	  "c" 'mc/mark-next-like-this
-	  "C" 'mc/mark-all-like-this
-	  "e" 'er/expand-region
-	  "E" 'mc/edit-lines
-	  "f" 'ido-find-file
-	  "g" 'magit-status
-	  "i" 'idomenu
-	  "j" 'ace-jump-mode
-	  "k" 'kill-buffer
-	  "K" 'kill-this-buffer
-	  "o" 'occur
-	  "p" 'magit-find-file-completing-read
-	  "r" 'recentf-ido-find-file
-	  "s" 'ag-project
-	  "t" 'bw-open-term
-	  "T" 'eshell
-	  "w" 'save-buffer
-	  "x" 'smex
-	  )))
+	 "a" 'ag-project
+	 "A" 'ag
+	 "b" 'ido-switch-buffer
+	 "c" 'mc/mark-next-like-this
+	 "C" 'mc/mark-all-like-this
+	 "e" 'er/expand-region
+	 "E" 'mc/edit-lines
+	 "f" 'ido-find-file
+	 "g" 'magit-status
+	 "i" 'idomenu
+	 "j" 'ace-jump-mode
+	 "k" 'kill-buffer
+	 "K" 'kill-this-buffer
+	 "o" 'occur
+	 "p" 'magit-find-file-completing-read
+	 "r" 'recentf-ido-find-file
+	 "s" 'ag-project
+	 "t" 'bw-open-term
+	 "T" 'eshell
+	 "w" 'save-buffer
+	 "x" 'smex
+	 )))
 
+
+    
     ;; boot evil by default
     (evil-mode 1))
   :config
@@ -54,6 +56,8 @@
      ;; Training wheels: start evil-mode in emacs mode
      )
 
+
+    
     ;; esc should always quit: http://stackoverflow.com/a/10166400/61435
     (define-key evil-normal-state-map [escape] 'keyboard-quit)
     (define-key evil-visual-state-map [escape] 'keyboard-quit)

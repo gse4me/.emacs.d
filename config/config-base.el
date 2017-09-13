@@ -1,4 +1,4 @@
-
+;;salut
 ;; Core settings
 ;; UTF-8 please
 (set-charset-priority 'unicode)
