@@ -30,6 +30,7 @@
 ;; look in the main config folder
 (add-to-list 'load-path (concat user-emacs-directory "config"))
 
+
 (let ((file-name-handler-alist nil))
   (require 'config-package)
   (setq use-package-verbose t)

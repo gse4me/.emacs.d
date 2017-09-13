@@ -1,4 +1,3 @@
-;;(use-package-with-elpa)
 
 (use-package winum
   :init
@@ -47,8 +46,8 @@ mouse-3: go to end"))))
 
 
 
-(use-package info+
-   :commands (info Info-mode))
+;; (use-package info+
+;;    :commands (info Info-mode))
 
 
 (use-package spaceline-config-vlad :ensure spaceline
@@ -67,11 +66,9 @@ mouse-3: go to end"))))
   :config
   (progn
     (spaceline-spacemacs-theme)
-    (spaceline-info-mode)
+    ;; (spaceline-info-mode)
     )
   )
-
-
 
 
 (provide 'config-modeline-spaceline)

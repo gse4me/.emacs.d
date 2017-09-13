@@ -1,4 +1,3 @@
-;;(use-package-with-elpa)
 ;; Add your custom functions here
 
 ;; (defun something
@@ -20,7 +19,6 @@ One works on certain modes where it's enabled"
 
 
 (defun gse-revert-buffer()
-
   "revert buffer without asking for confirmation"
   (interactive "" )
   (revert-buffer t t)
@@ -28,7 +26,13 @@ One works on certain modes where it's enabled"
 
 
 
-
+(defun gse-p4-edit-if-necessary ()
+  "Call p4 edit if a file is turned writable"
+  (if (and buffer-file-name
+	   (not buffer-read-only))      
+      (p4-edit)
+    )
+  )
 
 
 (provide 'config-functions)

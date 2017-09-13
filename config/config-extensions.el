@@ -1,4 +1,3 @@
-;;(use-package-with-elpa)
 
 (defun indent-or-complete ()
   "Indent or complete via company-mode."
@@ -6,9 +5,6 @@
   (if (looking-at "\\_>")
       (company-complete-common)
     (indent-according-to-mode)))
-
-
-
 
 (use-package company
   :diminish company-mode
@@ -28,17 +24,11 @@
    )
   )
 
+(use-package company-quickhelp          ; Documentation popups for Company
+  :defer t
+  :if window-system
+  :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
 
-  (use-package company-quickhelp          ; Documentation popups for Company
-    :defer t
-    :if window-system
-    :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package dashboard	     ;;
-;;   :config			     ;;
-;;   (dashboard-setup-startup-hook)) ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package ediff
   :defer t
@@ -57,18 +47,6 @@
   :commands flycheck-mode
   )
 
-;; (use-package hlinum
-;;   :config
-;;   (hlinum-activate))
-
-;; (use-package linum
-;;   :config
-;;   (setq linum-format " %4d ")
-;;   (setq linum-delay t)
-;;   ;;(global-linum-mode nil)
-;;   )
-
-
 (use-package nlinum
   :init
   (defface nlinum-current-line
@@ -80,8 +58,6 @@
   (setq  nlinum-highlight-current-line t)
   (setq nlinum-format " %d ")
   )
-
-
 
 (use-package magit
   :config
@@ -114,18 +90,21 @@
   ;; (git-gutter:linum-setup)
   )
 
-
 (use-package git-gutter-fringe
   :defer t
   )
 
 (use-package p4
-  :demand t
-  :bind-keymap (("C-x p" . p4-prefix-map))
+  ;;:demand t
+  ;;:bind-keymap (("C-x p" . p4-prefix-map))
   :init
   (setq p4-executable "/tool/pandora64/.package/perforce-2016.1/bin/p4")
-  ;; :config
+  (setq p4-global-key-prefix (kbd "C-x p"))
+  :config
   ;;(setq p4-do-find-file nil )
+  (add-hook 'p4-mode-hook
+	    (lambda () (add-hook 'read-only-mode-hook 'gse-p4-edit-if-necessary nil t)))
+  
   )
 
 (use-package multiple-cursors
@@ -171,8 +150,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package page-break-lines)
-
-
 
 (use-package recentf
   :config
@@ -262,7 +239,6 @@
   :init
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
   (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
-
 
 
 (use-package elisp-slime-nav

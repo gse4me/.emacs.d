@@ -1,6 +1,6 @@
 (require 'spaceline-segments)
 
-;; (defun hsl (H S L) ; :face font-lock-function-name-faceconvenience fn
+;; (defun hsl (H S L) ; :face font-lock-function-n (spaceline-spacemacs-theme)ame-faceconvenience fn
 ;;   (apply 'color-rgb-to-hex (color-hsl-to-rgb (/ H 360.0) S L)))
 ;; (defun face (face &rest spec) ; convenience fn
 ;;   (face-spec-set face (list (cons t spec))))
@@ -47,7 +47,7 @@ in pdf-view mode (enabled by the `pdf-tools' package)."
 	(hud :priority 0)
 	)
        )
-      (projectile-root :when active :face spaceline-evil-visual)
+      ;;(projectile-root :when active :face spaceline-evil-visual)
 
       (process :when active)
       (
@@ -92,8 +92,10 @@ ADDITIONAL-SEGMENTS are inserted on the right, between `global' and
 	    major-mode)
 	   :face highlight-face
 	   :priority 0)
-	 '((buffer-id remote-host)
-	   :priority 5)
+	 '(((projectile-root :when active )
+	    (buffer-id remote-host)
+	    ):priority 5
+	     :separator " | ")
 	 additional-segments))
 
 (defun spaceline-emacs-theme (&rest additional-segments)

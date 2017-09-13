@@ -1,4 +1,3 @@
-;;(use-package-with-elpa)
 
 ;; Core settings
 ;; UTF-8 please
@@ -67,7 +66,7 @@
 
 ;; Disable toolbar & menubar
 
-;;(menu-bar-mode -1)
+(menu-bar-mode -1)
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode)

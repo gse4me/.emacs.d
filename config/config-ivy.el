@@ -1,4 +1,3 @@
-;;(use-package-with-elpa)
 
 (use-package flx :defer t)
 (use-package swiper :defer t)
