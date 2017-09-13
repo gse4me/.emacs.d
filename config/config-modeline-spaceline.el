@@ -1,65 +1,21 @@
 ;;(use-package-with-elpa)
 
-;; (use-package treemacs
-;;   :config
-;;   (treemacs--setup-icon treemacs-icon-cpp        "cpp.png"        "cc" "h" )
-;;   (setq treemacs-header-function            #'treemacs--create-header-projectile
-;;         treemacs-follow-after-init          t
-;; 	treemacs-change-root-without-asking t
-;;         treemacs-width                      60
-;;         treemacs-indentation                2
-;;         treemacs-git-integration            t
-;;         treemacs-sorting                    'alphabetic-desc
-;;         treemacs-show-hidden-files          t
-;;         treemacs-never-persist              nil
-;;         treemacs-goto-tag-strategy          'refetch-index )
-;;   (treemacs-follow-mode)
-;;   (treemacs-filewatch-mode)
-;;   :bind
-;;   (:map global-map
-;; 	([f8]        . treemacs-toggle)
-;; 	([f9]        . treemacs-find-file)
-;; 	)
-;;   )
-
-
-
-(use-package neotree
-  :config
-  (setq neo-theme 'arrow ; 'classic, 'nerd, 'ascii, 'arrow ;;
-        neotree-smart-open t
-	projectile-switch-project-action 'neotree-projectile-action
-	neo-window-width 60
-        neo-window-fixed-size nil
-	neo-show-updir-line t
-	neo-force-change-root t
-	)
-
-  :bind
-  (:map global-map
-    	([f9]        . neotree-toggle))
-
-  ;; Disable linum for neotree			      ;;
-					;(add-hook 'neo-after-create-hook 'disable-neotree-hook) ;;
-  )
-
-
 (use-package winum
-  ;;:init
-  ;; (setq winum-keymap
-  ;; 	(let ((map (make-sparse-keymap)))
-  ;; 	  (define-key map (kbd "C-`") 'winum-select-window-by-number)
-  ;; 	  (define-key map (kbd "C-²") 'winum-select-window-by-number)
-  ;; 	  (define-key map (kbd "M-0") 'winum-select-window-0-or-10)
-  ;; 	  (define-key map (kbd "M-1") 'winum-select-window-1)
-  ;; 	  (define-key map (kbd "M-2") 'winum-select-window-2)
-  ;; 	  (define-key map (kbd "M-3") 'winum-select-window-3)
-  ;; 	  (define-key map (kbd "M-4") 'winum-select-window-4)
-  ;; 	  (define-key map (kbd "M-5") 'winum-select-window-5)
-  ;; 	  (define-key map (kbd "M-6") 'winum-select-window-6)
-  ;; 	  (define-key map (kbd "M-7") 'winum-select-window-7)
-  ;; 	  (define-key map (kbd "M-8") 'winum-select-window-8)
-  ;; 	  map))
+  :init
+  (setq winum-keymap
+  	(let ((map (make-sparse-keymap)))
+  	  (define-key map (kbd "C-`") 'winum-select-window-by-number)
+  	  (define-key map (kbd "C-²") 'winum-select-window-by-number)
+  	  (define-key map (kbd "M-0") 'winum-select-window-0-or-10)
+  	  (define-key map (kbd "M-1") 'winum-select-window-1)
+  	  (define-key map (kbd "M-2") 'winum-select-window-2)
+  	  (define-key map (kbd "M-3") 'winum-select-window-3)
+  	  (define-key map (kbd "M-4") 'winum-select-window-4)
+  	  (define-key map (kbd "M-5") 'winum-select-window-5)
+  	  (define-key map (kbd "M-6") 'winum-select-window-6)
+  	  (define-key map (kbd "M-7") 'winum-select-window-7)
+  	  (define-key map (kbd "M-8") 'winum-select-window-8)
+  	  map))
   :config
   (progn
     (set-face-attribute 'winum-face nil :weight 'bold)
@@ -112,9 +68,6 @@ mouse-3: go to end"))))
   (progn
     (spaceline-spacemacs-theme)
     (spaceline-info-mode)
-    ;;(when (package-installed-p 'helm)
-    ;;  (spaceline-helm-mode t))
-    ;;)
     )
   )
 

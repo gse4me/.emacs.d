@@ -32,6 +32,9 @@
 
 (let ((file-name-handler-alist nil))
   (require 'config-package)
+  (setq use-package-verbose t)
+  (setq use-package-always-ensure t)
+
   (require 'config-package-extra)
   (require 'config-base)
   (require 'config-theme)
@@ -40,8 +43,14 @@
   (require 'config-functions)
   (require 'config-search)
   (require 'config-projects)
+  (require 'config-tree)
+
+
+  ;;---choose one modeline-------------
   ;;(require 'config-modeline-sml)
   (require 'config-modeline-spaceline)
+  ;;-----------------------------------
+
   (require 'config-font-lock)
 
   (require 'lang-python)
@@ -51,8 +60,10 @@
   (require 'lang-yaml)
   ;;(require 'lang-ruby)
 
+
   (require 'config-global-keys)
   (require 'config-work)
-  ;;  (require 'config-evil)
+  ;; (require 'config-evil)
+  (require 'config-hydras)
 
   )

@@ -25,14 +25,10 @@
     )
   )
 
-;; (use-package persp-projectile
-;;   :config
-;;   (persp-mode)
-;;   )
 
 (use-package counsel-projectile
   :defer t
-  :after projectile
+  :after projectilex
   :init (counsel-projectile-on))
 
 (use-package ibuffer-projectile         ; Group buffers by Projectile project
@@ -59,5 +55,6 @@
 
   )
 
+(use-package ag)
 
 (provide 'config-projects)

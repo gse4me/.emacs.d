@@ -7,7 +7,8 @@
 
 (defcustom gse-clean-whitespace-on-save t
   "Cleanup whitespace from file before it's saved.
-Will only occur if `gse-whitespace' is also enabled."
+Will only occur if `gse-whitespace' is also enabled.
+One works on certain modes where it's enabled"
   :type 'boolean
   :group 'gse)
 

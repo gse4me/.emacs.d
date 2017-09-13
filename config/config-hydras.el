@@ -22,6 +22,42 @@
    ("V" scroll-down-command)
    ("l" recenter-top-bottom)))
 
+
+
+
+(defhydra hydra-git-gutter (:body-pre (git-gutter-mode 1)
+				      :hint nil)
+  "
+Git gutter:
+
+  Move                Edit                Quit
+------------------------------------------------------------------------------------------
+  _j_: next hunk        _s_tage hunk          _q_uit
+  _k_: previous hunk    _r_evert hunk         _Q_uit and deactivate git-gutter
+  ^ ^                   _p_opup hunk
+  _h_: first hunk
+  _l_: last hunk        set start _R_evision
+"
+  ("j" git-gutter:next-hunk)
+  ("k" git-gutter:previous-hunk)
+  ("h" (progn (goto-char (point-min))
+              (git-gutter:next-hunk 1)))
+  ("l" (progn (goto-char (point-min))
+              (git-gutter:previous-hunk 1)))
+  ("s" git-gutter:stage-hunk)
+  ("r" git-gutter:revert-hunk)
+  ("p" git-gutter:popup-hunk)
+  ("R" git-gutter:set-start-revision)
+  ("q" nil :color blue)
+  ("Q" (progn (git-gutter-mode -1)
+              ;; git-gutter-fringe doesn't seem to
+              ;; clear the markup right away
+              (sit-for 0.1)
+              (git-gutter:clear))
+   :color blue))
+
+
+
 (defhydra hydra-projectile-other-window (:color teal)
   "projectile-other-window"
   ("f"  projectile-find-file-other-window        "file")
@@ -37,77 +73,33 @@
 
      Find File            Search/Tags          Buffers                Cache
 ------------------------------------------------------------------------------------------
-_s-f_: file            _a_: ag                _i_: Ibuffer           _c_: cache clear
- _ff_: file dwim       _g_: update gtags      _b_: switch to buffer  _x_: remove known project
- _fd_: file curr dir   _o_: multi-occur     _s-k_: Kill all buffers  _X_: cleanup non-existing
+ _ff_: file            _a_: ag                _i_: Ibuffer           _c_: cache clear
+ _fw_: file dwim       _g_: update gtags      _b_: switch to buffer  _x_: remove known project
+ _fd_: file curr dir   _o_: multi-occur       _k_: kill all buffers  _X_: cleanup non-existing
   _r_: recent file                                               ^^^^_z_: cache current
-  _d_: dir
+  _d_: dir             _s_: switch-project    
 
 "
   ("a"   projectile-ag)
   ("b"   projectile-switch-to-buffer)
   ("c"   projectile-invalidate-cache)
   ("d"   projectile-find-dir)
-  ("s-f" projectile-find-file)
-  ("ff"  projectile-find-file-dwim)
+  ("ff"  projectile-find-file)
+  ("fw"  projectile-find-file-dwim)
   ("fd"  projectile-find-file-in-directory)
   ("g"   ggtags-update-tags)
-  ("s-g" ggtags-update-tags)
   ("i"   projectile-ibuffer)
-  ("K"   projectile-kill-buffers)
-  ("s-k" projectile-kill-buffers)
-  ("m"   projectile-multi-occur)
-  ("o"   projectile-multi-occur)
-  ("s-p" projectile-switch-project "switch project")
-  ("p"   projectile-switch-project)
+  ("k"   projectile-kill-buffers)  
+  ("o"   projectile-multi-occur)  
   ("s"   projectile-switch-project)
   ("r"   projectile-recentf)
   ("x"   projectile-remove-known-project)
   ("X"   projectile-cleanup-known-projects)
   ("z"   projectile-cache-current-file)
   ("`"   hydra-projectile-other-window/body "other window")
+  ("w"   hydra-git-gutter/body "Gutter")
   ("q"   nil "cancel" :color blue))
 
 
 
-(use-package ace-window
-  :ensure t
-  :defer 1
-  :config
-  (set-face-attribute 'aw-leading-char-face nil :foreground "deep sky blue" :weight 'bold :height 3.0)
-  (set-face-attribute 'aw-mode-line-face nil :inherit 'mode-line-buffer-id :foreground "lawn green")
-  (setq aw-keys   '(?a ?s ?d ?f ?j ?k ?l)
-	aw-dispatch-always t
-	aw-dispatch-alist
-	'((?x aw-delete-window     "Ace - Delete Window")
-	  (?c aw-swap-window       "Ace - Swap Window")
-	  (?n aw-flip-window)
-	  (?v aw-split-window-vert "Ace - Split Vert Window")
-	  (?h aw-split-window-horz "Ace - Split Horz Window")
-	  (?m delete-other-windows "Ace - Maximize Window")
-	  (?g delete-other-windows)
-	  (?b balance-windows)
-	  (?u winner-undo)
-	  (?r winner-redo)))
-
-  (when (package-installed-p 'hydra)
-    (defhydra hydra-window-size (:color red)
-      "Windows size"
-      ("h" shrink-window-horizontally "shrink horizontal")
-      ("j" shrink-window "shrink vertical")
-      ("k" enlarge-window "enlarge vertical")
-      ("l" enlarge-window-horizontally "enlarge horizontal"))
-    (defhydra hydra-window-frame (:color red)
-      "Frame"
-      ("f" make-frame "new frame")
-      ("x" delete-frame "delete frame"))
-    (defhydra hydra-window-scroll (:color red)
-      "Scroll other window"
-      ("n" joe-scroll-other-window "scroll")
-      ("p" joe-scroll-other-window-down "scroll down"))
-    (add-to-list 'aw-dispatch-alist '(?w hydra-window-size/body) t)
-    (add-to-list 'aw-dispatch-alist '(?o hydra-window-scroll/body) t)
-    (add-to-list 'aw-dispatch-alist '(?\; hydra-window-frame/body) t))
-  (ace-window-display-mode t))
-
-(provide 'config-hydras.el)
+(provide 'config-hydras)

@@ -9,7 +9,7 @@
   (add-hook 'yaml-mode-hook 'whitespace-mode)
   (add-hook 'yaml-mode-hook 'subword-mode)
   (add-hook 'yaml-mode-hook
-	    (lambda () (add-hook 'before-save-hook 'gse-cleanup-maybe nil t)))
+  	    (lambda () (add-hook 'before-save-hook 'gse-cleanup-maybe nil t)))
 
 
   )

@@ -79,7 +79,7 @@
 ;;(which-function-mode 1)
 
 ;; Delete trailing whitespace before save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
 ;;; cperl-mode is preferred to perl-mode

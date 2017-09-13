@@ -99,14 +99,34 @@
 (use-package magit-popup
   :after magit)
 
+(use-package diff-hl
+  :init
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  )
+
+(use-package git-gutter
+  :defer t
+  :load-path "~/.emacs.d/git_edits/emacs-git-gutter/"
+  :init
+  (setq git-gutter:p4_ex "/tool/pandora64/.package/perforce-2016.1/bin/p4")
+  ;;(git-gutter:linum-setup)
+  ;; :config
+  ;; (git-gutter:linum-setup)
+  )
+
+
+(use-package git-gutter-fringe
+  :defer t
+  )
 
 (use-package p4
   :demand t
   :bind-keymap (("C-x p" . p4-prefix-map))
+  :init
+  (setq p4-executable "/tool/pandora64/.package/perforce-2016.1/bin/p4")
   ;; :config
   ;;(setq p4-do-find-file nil )
   )
-
 
 (use-package multiple-cursors
   :bind
