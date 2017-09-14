@@ -1,5 +1,3 @@
-
-
 (use-package projectile
   :load-path "~/.emacs.d/git_edits/projectile"
   ;; :defer 0.2
@@ -18,12 +16,10 @@
 	)
   :config
   (progn
-    ;;(add-to-list 'projectile-project-root-files "P4CONFIG")
     (add-to-list 'projectile-project-root-files "init.el")
     (projectile-mode)
     )
   )
-
 
 (use-package counsel-projectile
   :defer t
@@ -37,11 +33,6 @@
   (setq ibuffer-projectile-prefix "")
   )
 
-;; (use-package ibuffer-vc         ;
-;;   :defer t
-;;   :init (add-hook 'ibuffer-hook #'ibuffer-vc-set-filter-groups-by-vc-root))
-
-
 (use-package dashboard
   :config
   (setq
@@ -51,7 +42,6 @@
 		     (bookmarks . 10)
 		     ))
   (dashboard-setup-startup-hook)
-
   )
 
 (use-package ag)

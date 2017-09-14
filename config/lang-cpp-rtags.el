@@ -1,7 +1,21 @@
 
 (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
 
-;;(require 'cl)
+(use-package which-func                 ; Current function name
+  :bind
+  ([f4] . which-function-mode)
+  :config
+  (setq
+   which-func-unknown "⊥"               ; The default is really boring…
+   which-func-format
+   `((:propertize (" ➤ " which-func-current)
+                  local-map ,which-func-keymap
+                  face which-func
+                  mouse-face mode-line-highlight
+                  help-echo "mouse-1: go to beginning\n\
+mouse-2: toggle rest visibility\n\
+mouse-3: go to end"))))
+
 
 (use-package ggtags
   :commands (ggtags-mode)
@@ -23,10 +37,8 @@
   :after ggtags
   :config
   (progn
-
     (add-hook 'c-mode-hook 'counsel-gtags-mode)
     (add-hook 'c++-mode-hook 'counsel-gtags-mode)
-
     ;; (with-eval-after-load 'counsel-gtags
     ;;   (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
     ;;   (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
@@ -77,10 +89,6 @@
 	(setq-local eldoc-documentation-function #'rtags-eldoc-function)
 	(eldoc-mode 1))))
 
-
-
-
-
 (use-package rtags
   :defer t
   :bind
@@ -120,18 +128,6 @@
   (add-to-list 'company-backends '( :separate company-rtags company-dabbrev-code company-keywords))
   ;;(add-to-list 'company-backends 'company-rtags)
   )
-
-;; (use-package company-c-headers
-;;   :after rtags
-;;   :config
-;;   (add-to-list 'company-backends 'company-c-headers)
-;;   )
-
-(use-package cc-mode
-  :defer t
-  )
-
-
 
 (use-package modern-cpp-font-lock
   :after cc-mode

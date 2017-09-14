@@ -27,8 +27,8 @@
 (use-package company-quickhelp          ; Documentation popups for Company
   :defer t
   :if window-system
-  :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode))
-
+  :init (add-hook 'global-company-mode-hook #'company-quickhelp-mode)
+  )
 
 (use-package ediff
   :defer t
@@ -41,7 +41,8 @@
 
 (use-package expand-region
   :bind
-  ("C-=" . er/expand-region))
+  ("C-=" . er/expand-region)
+  )
 
 (use-package flycheck
   :commands flycheck-mode
@@ -57,54 +58,6 @@
   :config
   (setq  nlinum-highlight-current-line t)
   (setq nlinum-format " %d ")
-  )
-
-(use-package magit
-  :config
-  (setq magit-completing-read-function 'ivy-completing-read)
-  :bind
-  ;; Magic
-  ("C-x g s" . magit-status)
-  ("C-x g x" . magit-checkout)
-  ("C-x g c" . magit-commit)
-  ("C-x g p" . magit-push)
-  ("C-x g u" . magit-pull)
-  ("C-x g e" . magit-ediff-resolve)
-  ("C-x g r" . magit-rebase-interactive))
-
-(use-package magit-popup
-  :after magit)
-
-(use-package diff-hl
-  :init
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  )
-
-(use-package git-gutter
-  :defer t
-  :load-path "~/.emacs.d/git_edits/emacs-git-gutter/"
-  :init
-  (setq git-gutter:p4_ex "/tool/pandora64/.package/perforce-2016.1/bin/p4")
-  ;;(git-gutter:linum-setup)
-  ;; :config
-  ;; (git-gutter:linum-setup)
-  )
-
-(use-package git-gutter-fringe
-  :defer t
-  )
-
-(use-package p4
-  ;;:demand t
-  ;;:bind-keymap (("C-x p" . p4-prefix-map))
-  :init
-  (setq p4-executable "/tool/pandora64/.package/perforce-2016.1/bin/p4")
-  (setq p4-global-key-prefix (kbd "C-x p"))
-  :config
-  ;;(setq p4-do-find-file nil )
-  (add-hook 'p4-mode-hook
-	    (lambda () (add-hook 'read-only-mode-hook 'gse-p4-edit-if-necessary nil t)))
-  
   )
 
 (use-package multiple-cursors
@@ -126,35 +79,13 @@
   :diminish abbrev-mode
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package org									   ;;
-;;   :config										   ;;
-;;   (setq org-directory "~/org-files"							   ;;
-;;         org-default-notes-file (concat org-directory "/todo.org"))			   ;;
-;;   :bind										   ;;
-;;   ("C-c l" . org-store-link)								   ;;
-;;   ("C-c a" . org-agenda))								   ;;
-;; 											   ;;
-;; (use-package org-projectile								   ;;
-;;   :config										   ;;
-;;   (org-projectile:per-repo)								   ;;
-;;   (setq org-projectile:per-repo-filename "todo.org"					   ;;
-;; 	org-agenda-files (append org-agenda-files (org-projectile:todo-files))))	   ;;
-;; 											   ;;
-;; (use-package org-bullets								   ;;
-;;   :config										   ;;
-;;   (setq org-hide-leading-stars t)							   ;;
-;;   (add-hook 'org-mode-hook								   ;;
-;;             (lambda ()								   ;;
-;;               (org-bullets-mode t))))						   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (use-package page-break-lines)
 
 (use-package recentf
   :config
   (setq recentf-save-file (expand-file-name "recentf" my-savefile-dir))
-  (recentf-mode 1))
+  (recentf-mode 1)
+  )
 
 (use-package smartparens)
 
@@ -163,11 +94,10 @@
   :config
   ;; Remember undo history
   (setq
-   undo-tree-auto-save-history nil
-   undo-tree-history-directory-alist `(("." . ,(concat user-emacs-directory "/undo/"))))
-  (global-undo-tree-mode 1))
-
-
+   undo-tree-auto-save-history t
+   undo-tree-history-directory-alist `(("." . ,(expand-file-name "undo_tree" my-savefile-dir))))
+  (global-undo-tree-mode 1)
+  )
 
 (use-package windmove
   :bind
@@ -181,14 +111,10 @@
   :defer t
   :config
   (nconc grep-find-ignored-files
-         '("TAGS" "GTAGS" "GRTAGS" "GSYMS" "GPATH" "GTAGSROOT"))
-
+         '("TAGS" "GTAGS" "GRTAGS" "GSYMS" "GPATH" "GTAGSROOT")
+	 )
   (use-package wgrep :defer t)
   )
-
-
-
-
 
 (use-package yasnippet
   :defer t
@@ -201,12 +127,6 @@
   :diminish which-key-mode
   :config
   (which-key-mode))
-
-;; Use nasm-mode because it provides better x86 formatting
-;;(use-package nasm-mode
-;;  :mode "\\.asm")
-
-
 
 (use-package verilog-mode
   :load-path "~/.emacs.d/git_edits/verilog-mode"
@@ -245,5 +165,15 @@
   :init
   (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
 
+
+(use-package zoom-frm
+  :ensure t
+  :bind (("C-c C-+" . zoom-in/out)
+         ("C-c C--" . zoom-in/out)
+         ("C-c C-0" . zoom-in/out)
+         ("C-c C-=" . zoom-in/out)
+	 ("<C-mouse-4>" . zoom-in)
+	 ("<C-mouse-5>" . zoom-out)
+	 ))
 
 (provide 'config-extensions)

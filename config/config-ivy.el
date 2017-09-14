@@ -22,12 +22,12 @@
 
 ;; Counsel makes use of smex
 (use-package smex
+  :defer t
   :init
   (setq
    smex-history-length 20
    smex-save-file (expand-file-name  "smex-items" my-savefile-dir)
    )
-  :defer t
   )
 
 
@@ -39,12 +39,6 @@
            (path (concat dir text-typed)))
       (delete-minibuffer-contents)
       (ivy--done path))))
-
-;; Use C-j for immediate termination with the current value, and RET
-;; for continuing completion for that directory. This is the ido
-;; behaviour.
-;;(define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
-;;(define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
 
 
 (use-package ivy
@@ -61,12 +55,10 @@
   (progn
     (setq ivy-use-virtual-buffers t
 	  ivy-count-format "(%d/%d) "
-
 	  ;; (setq ivy-re-builders-alist
 	  ;; 	  '((read-file-name-internal . ivy--regex-fuzzy)
 	  ;; 	    (counsel-M-x . ivy--regex-fuzzy)
 	  ;; 	    (t . ivy--regex-plus)))
-
 	  ivy-re-builders-alist
 	  '((counsel-projectile-find-file . ivy--regex-plus)
 	    (t . ivy--regex-fuzzy))
@@ -91,10 +83,5 @@
 	ivy-rich-switch-buffer-name-max-length 80
 	ivy-rich-switch-buffer-delimiter "|")
   )
-
-;;too much cpu
-;; (use-package ivy-historian              ; Store minibuffer candidates
-;;   :after ivy
-;;   :config (ivy-historian-mode t))
 
 (provide 'config-ivy)

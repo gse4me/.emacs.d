@@ -1,9 +1,3 @@
-;;<USER CFG>
-;;comment below to scroll faster in large files (.c/.cc/.cpp)
-;;the file will load slower because more of it will be fontified
-;;with this commented the load is faster but scroll is weak
-(setq jit-lock-chunk-size 5000)
-
 
 (add-to-list 'auto-mode-alist '("\\.xml\\'" . xml-mode))
 (add-to-list 'auto-mode-alist '("\\env.cfg\\'" . xml-mode))

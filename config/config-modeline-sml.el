@@ -1,5 +1,4 @@
 (use-package smart-mode-line
-  :ensure t
   :init
   (progn
     (setq sml/no-confirm-load-theme t)

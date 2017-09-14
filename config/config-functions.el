@@ -1,9 +1,5 @@
 ;; Add your custom functions here
 
-;; (defun something
-;;    (do-something))
-
-
 (defcustom gse-clean-whitespace-on-save t
   "Cleanup whitespace from file before it's saved.
 Will only occur if `gse-whitespace' is also enabled.
@@ -24,8 +20,6 @@ One works on certain modes where it's enabled"
   (revert-buffer t t)
   )
 
-
-
 (defun gse-p4-edit-if-necessary ()
   "Call p4 edit if a file is turned writable"
   (if (and buffer-file-name
@@ -33,6 +27,13 @@ One works on certain modes where it's enabled"
       (p4-edit)
     )
   )
+
+;;;###autoload
+(defun gse-swiper-at-point (_arg)
+  "Swiper with 'thing-at-point'."
+  (interactive "P")
+  (swiper (thing-at-point 'symbol)))
+
 
 
 (provide 'config-functions)

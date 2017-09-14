@@ -29,25 +29,6 @@
   )
 
 
-(use-package which-func                 ; Current function name
-  :bind
-  ([f4] . which-function-mode)
-  :config
-  (setq
-   which-func-unknown "⊥"               ; The default is really boring…
-   which-func-format
-   `((:propertize (" ➤ " which-func-current)
-                  local-map ,which-func-keymap
-                  face which-func
-                  mouse-face mode-line-highlight
-                  help-echo "mouse-1: go to beginning\n\
-mouse-2: toggle rest visibility\n\
-mouse-3: go to end"))))
-
-
-
-;; (use-package info+
-;;    :commands (info Info-mode))
 
 
 (use-package spaceline-config-vlad :ensure spaceline
@@ -60,13 +41,10 @@ mouse-3: go to end"))))
      powerline-height 20
      powerline-scale 2
      spaceline-highlight-face-func 'spaceline-highlight-face-modified
-     ;; spaceline-separator-dir-left '(left . left)
-     ;; spaceline-separator-dir-right '(right . right)
      ))
   :config
   (progn
     (spaceline-spacemacs-theme)
-    ;; (spaceline-info-mode)
     )
   )
 

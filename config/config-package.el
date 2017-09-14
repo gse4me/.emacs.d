@@ -29,6 +29,10 @@ Example:
     (package-install 'use-package)
     ))
 
+(setq use-package-verbose t)
+(setq use-package-always-ensure t)
+(if (daemonp)
+    (setq use-package-always-demand t))
 
 
 (use-package bind-key)

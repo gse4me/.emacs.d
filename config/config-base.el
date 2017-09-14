@@ -1,4 +1,3 @@
-;;salut
 ;; Core settings
 ;; UTF-8 please
 (set-charset-priority 'unicode)
@@ -9,6 +8,7 @@
 (prefer-coding-system        'utf-8)   ; with sugar on top
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
+;;ibuffer format to se more 
 (setq ibuffer-formats
       '((mark modified read-only " "
               (name 30 30 :left :elide) " "
@@ -16,8 +16,9 @@
               (mode 16 16 :left :elide) " " filename-and-process)
         (mark " " (name 16 -1) " " filename)))
 
-;; Emacs customizations
-(setq				;confirm-kill-emacs                  'y-or-n-p
+;; Some better general defaults
+(setq
+ ;;confirm-kill-emacs                  'y-or-n-p
  global-hl-line-mode                 t
  truncate-lines                      t
  visual-line-mode                    t
@@ -26,7 +27,7 @@
  frame-title-format                  "%b %+%+ %f"
  confirm-nonexistent-file-or-buffer  t
  save-interprogram-paste-before-kill t
-					;mouse-yank-at-point                 t
+ ;;mouse-yank-at-point                 t
  require-final-newline               t
  visible-bell                        nil
  ring-bell-function                  'ignore
@@ -45,8 +46,7 @@
  fringes-outside-margins            t
  select-enable-clipboard            t
  switch-to-buffer-preserve-window-point t
- jit-lock-chunk-size                    50000  ; how much to fontify
- ;;use-package-always-ensure          t
+ jit-lock-chunk-size                    5000  ;; how much to fontify
  )
 
 
@@ -64,8 +64,7 @@
 (global-auto-revert-mode t)
 
 
-;; Disable toolbar & menubar
-
+;; Disable toolbar & menuba
 (menu-bar-mode -1)
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -83,6 +82,20 @@
 
 ;;; cperl-mode is preferred to perl-mode
 (defalias 'perl-mode 'cperl-mode)
+
+
+;; configure isearch
+(set-face-foreground 'isearch "red")
+(set-face-background 'isearch "green")
+(set-face-foreground 'lazy-highlight "black")
+(set-face-background 'lazy-highlight "white")
+(custom-set-faces '(isearch-fail ((((class color)) (:background "red")))))
+
+(setq-default isearch-invisible 'open)
+(setq isearch-allow-scroll t
+      lazy-highlight-initial-delay 0)
+
+(define-key isearch-mode-map (kbd "DEL") 'isearch-del-char)
 
 
 (provide 'config-base)
