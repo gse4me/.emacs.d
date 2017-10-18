@@ -79,8 +79,6 @@
   :diminish abbrev-mode
   )
 
-(use-package page-break-lines)
-
 (use-package recentf
   :config
   (setq recentf-save-file (expand-file-name "recentf" my-savefile-dir))

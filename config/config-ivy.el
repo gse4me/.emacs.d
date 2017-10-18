@@ -18,6 +18,8 @@
   ( "C-x l" . counsel-locate)
   ( "C-S-o" . counsel-rhythmbox)
   ( "C-c C-r" . ivy-resume)
+  :config
+  (define-key counsel-find-file-map (kbd "$") 'counsel-expand-env)
   )
 
 ;; Counsel makes use of smex
@@ -83,5 +85,53 @@
 	ivy-rich-switch-buffer-name-max-length 80
 	ivy-rich-switch-buffer-delimiter "|")
   )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;; COMPLETE USING ENV VARS -> EG ctrl-f $MK -> go to moksha #############
+;; (use-package exec-path-from-shell
+;;   :config
+;;   (setq exec-path-from-shell-debug t)
+;;   )
+
+(defun counsel-env-res (res path)
+  (let ((apath (abbreviate-file-name path)))
+    (list (car res)
+	  (if (file-accessible-directory-p path)
+	      (file-name-as-directory apath)
+	    apath))))
+
+(defun counsel-env ()
+  (delq nil
+        (mapcar
+         (lambda (s)
+           (let* ((res (split-string s "=" t))
+                  (path (cadr res)))
+             (when (stringp path)
+               (cond ((file-exists-p path)
+                      (counsel-env-res res path))
+                     ((file-exists-p (expand-file-name path ivy--directory))
+                      (counsel-env-res
+                       res (expand-file-name path ivy--directory)))
+                     (t nil)))))
+         process-environment)))
+
+(defun counsel-expand-env ()
+  (interactive)
+  (if (equal ivy-text "")
+      (progn
+        (let ((enable-recursive-minibuffers t)
+              (history (symbol-value (ivy-state-history ivy-last)))
+              (old-last ivy-last)
+              (ivy-recursive-restore nil))
+          (ivy-read "Env: " (counsel-env)
+                    :action (lambda (x)
+                              (ivy--reset-state (setq ivy-last old-last))
+                              (setq ivy--directory "")
+                              (delete-minibuffer-contents)
+                              (insert (cadr x))))))
+    (insert "$")))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'config-ivy)

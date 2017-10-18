@@ -37,6 +37,7 @@
   (require 'config-base)
   (require 'config-theme)
   (require 'config-extensions)
+  (require 'config-org)
   (require 'config-ivy)
   (require 'config-vcs) ;;git/p4
   (require 'config-functions)

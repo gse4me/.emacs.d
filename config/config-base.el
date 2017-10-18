@@ -47,6 +47,7 @@
  select-enable-clipboard            t
  switch-to-buffer-preserve-window-point t
  jit-lock-chunk-size                    5000  ;; how much to fontify
+ enable-recursive-minibuffers       t 
  )
 
 
@@ -74,6 +75,7 @@
   (horizontal-scroll-bar-mode -1))
 
 (show-paren-mode 1)
+(global-hl-line-mode 1)
 ;;(which-function-mode 1)
 
 ;; Delete trailing whitespace before save

@@ -16,6 +16,18 @@
 mouse-2: toggle rest visibility\n\
 mouse-3: go to end"))))
 
+;; (use-package dumb-jump
+;;   :bind (("M-g o" . dumb-jump-go-other-window)
+;;          ("M-g j" . dumb-jump-go)
+;;          ("M-g i" . dumb-jump-go-prompt)
+;;          ("M-g x" . dumb-jump-go-prefer-external)
+;;          ("M-g z" . dumb-jump-go-prefer-external-other-window))
+;;   :config
+;;   (setq dumb-jump-selector 'ivy
+;; 	dumb-jump-ag-cmd "/tool/pandora64/.package/the_silver_searcher-0.24.1/bin/ag"
+;; 	)
+;;   ) 
+
 
 (use-package ggtags
   :commands (ggtags-mode)
@@ -102,7 +114,7 @@ mouse-3: go to end"))))
   (add-hook 'objc-mode-hook 'rtags-enable-standard-keybindings)
   :config
   (progn
-    (setq rtags-path "/proj/mk_verif_user/users/vsandule/_tools/rtags/build/bin/")
+    (setq rtags-path "/proj/mk_verif_user/users/vsandule/_tools/rtags2/rtags/build/bin/")
     ;; Start rtags upon entering a C/C++ file
     (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
     (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
