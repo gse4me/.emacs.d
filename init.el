@@ -32,6 +32,7 @@
 
 
 (let ((file-name-handler-alist nil))
+  (require 'config-paths)
   (require 'config-package) 
   (require 'config-package-extra)
   (require 'config-base)

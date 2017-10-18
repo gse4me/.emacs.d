@@ -7,11 +7,13 @@
 	  treemacs-width                      35
 	  treemacs-indentation                2
 	  treemacs-git-integration            t
+	  treemacs-collapse-dirs              3
 	  treemacs-silent-refresh             nil
 	  treemacs-change-root-without-asking nil
 	  treemacs-sorting                    'alphabetic-desc
 	  treemacs-show-hidden-files          t
 	  treemacs-never-persist              nil
+	  treemacs-is-never-other-window      nil
 	  treemacs-goto-tag-strategy          'refetch-index)
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)
@@ -42,11 +44,9 @@
 ;; 	neo-show-updir-line t
 ;; 	neo-force-change-root t
 ;; 	)
-
 ;;   :bind
 ;;   (:map global-map
 ;;     	([f9]        . neotree-toggle))
-
 ;;   ;; Disable linum for neotree			      ;;
 ;; 					;(add-hook 'neo-after-create-hook 'disable-neotree-hook) ;;
 ;;   )

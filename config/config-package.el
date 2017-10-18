@@ -20,6 +20,11 @@ Example:
                          ("melpa" . "http://melpa.org/packages/")
                          ("org"          . "http://orgmode.org/elpa/")))
 
+(setq quelpa-self-upgrade-p nil)
+(setq quelpa-update-melpa-p nil)
+(setq quelpa-checkout-melpa-p nil)
+
+
 
 ;; Install use-package if not yet installed.
 (eval-when-compile
@@ -27,7 +32,20 @@ Example:
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package)
-    ))
+    )
+  ;; to install directly from git
+  (unless (require 'quelpa nil t)
+    (with-temp-buffer
+      (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el")
+      (eval-buffer)))  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; (if (require 'quelpa nil t)							       ;;
+  ;;     (quelpa-self-upgrade)								       ;;
+  ;;   (with-temp-buffer								       ;;
+  ;;     (url-insert-file-contents "https://raw.github.com/quelpa/quelpa/master/bootstrap.el") ;;
+  ;;     (eval-buffer)))								       ;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  )
 
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
@@ -37,6 +55,17 @@ Example:
 
 (use-package bind-key)
 (use-package diminish)
+
+
+
+
+(quelpa
+ '(quelpa-use-package
+   :fetcher github
+   :repo "quelpa/quelpa-use-package"))
+(require 'quelpa-use-package)
+
+
 
 
 (provide 'config-package)

@@ -1,7 +1,7 @@
 
 (use-package magit
   :config
-  (setq magit-completing-read-function 'ivy-completing-read)
+  (setq magit-completing-read-function 'ivy-complet/tool/pandora64/.package/the_silver_searcher-0.24.1/bin/aging-read)
   :bind
   ;; Magic
   ("C-x g s" . magit-status)
@@ -25,7 +25,7 @@
   :defer t
   :load-path "~/.emacs.d/git_edits/emacs-git-gutter/"
   :init
-  (setq git-gutter:p4_ex "/tool/pandora64/.package/perforce-2016.1/bin/p4") 
+  (setq git-gutter:p4_ex my-p4-ex) 
   ;; :config
   ;; (git-gutter:linum-setup)
   )
@@ -36,7 +36,7 @@
 
 (use-package p4  
   :init
-  (setq p4-executable "/tool/pandora64/.package/perforce-2016.1/bin/p4")
+  (setq p4-executable my-p4-ex)
   (setq p4-global-key-prefix (kbd "C-x p"))
   :config
   ;;(setq p4-do-find-file nil )

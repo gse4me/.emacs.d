@@ -50,7 +50,10 @@
   (setq ibuffer-projectile-prefix ""))
 
 (use-package ag
-  :defer t)
+  :defer t
+  :init
+  (setq ag-executable my-ag-ex)
+  )
 
 (use-package page-break-lines)
 

@@ -114,7 +114,7 @@ mouse-3: go to end"))))
   (add-hook 'objc-mode-hook 'rtags-enable-standard-keybindings)
   :config
   (progn
-    (setq rtags-path "/proj/mk_verif_user/users/vsandule/_tools/rtags2/rtags/build/bin/")
+    (setq rtags-path my-rtags-path)
     ;; Start rtags upon entering a C/C++ file
     (add-hook 'c-mode-hook 'rtags-start-process-unless-running)
     (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)

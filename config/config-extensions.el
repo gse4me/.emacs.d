@@ -114,11 +114,13 @@
   (use-package wgrep :defer t)
   )
 
-(use-package yasnippet
-  :defer t
-  :init
-  (add-hook 'python-mode #'yas-minor-mode)
-  :config (yas-reload-all))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (use-package yasnippet		      ;;
+;;   :defer t				      ;;
+;;   :init				      ;;
+;;   (add-hook 'python-mode #'yas-minor-mode) ;;
+;;   :config (yas-reload-all))		      ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (use-package which-key
@@ -126,8 +128,9 @@
   :config
   (which-key-mode))
 
+
 (use-package verilog-mode
-  :load-path "~/.emacs.d/git_edits/verilog-mode"
+  :quelpa (verilog-mode :fetcher github :repo "veripool/verilog-mode")
   :mode (("\\.[st]*v[hp]*\\'" . verilog-mode) ; .v, .sv, .svh, .tv, .vp
          ("\\.psl\\'"         . verilog-mode)  ; .psl
          ("\\.[xd]\\'"        . verilog-mode) ; .x, .d
