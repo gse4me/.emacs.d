@@ -57,10 +57,16 @@
   ;;(require 'lang-ruby)
   (require 'lang-cpp-rtags)
   (require 'lang-yaml)
+  ;; (require 'lst-mode)
   ;;(require 'lang-ruby)
   
   (require 'config-global-keys)
   (require 'config-work)
   ;; (require 'config-evil)
   (require 'config-hydras)
+
+
+
+  (setq gdb-many-windows 1)
+  
   )

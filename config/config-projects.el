@@ -1,6 +1,7 @@
 (use-package projectile
   :load-path "~/.emacs.d/git_edits/projectile"
   ;; :defer 0.2
+  :ensure nil
   :diminish projectile-mode
   :init
   (setq projectile-enable-caching t

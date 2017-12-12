@@ -129,12 +129,30 @@
   (which-key-mode))
 
 
+
+
+(use-package nasm-mode	      
+  :mode ("\\.lst\\'" . nasm-mode)
+  :mode ("\\.asm\\'" . nasm-mode)
+  )				     
+
+
+
+
+;; (use-package lst-mode	     ;;
+;;   :ensure nil
+;;   :load-path "~/.emacs.d/config/" ;;
+;;   :mode ("\\.lst\\'" . lst-mode)  ;;
+;;   )				     ;;
+
+
 (use-package verilog-mode
   :quelpa (verilog-mode :fetcher github :repo "veripool/verilog-mode")
   :mode (("\\.[st]*v[hp]*\\'" . verilog-mode) ; .v, .sv, .svh, .tv, .vp
          ("\\.psl\\'"         . verilog-mode)  ; .psl
          ("\\.[xd]\\'"        . verilog-mode) ; .x, .d
 	 ("\\.decl\\'"        . verilog-mode)) ; .decl
+
 
   ;;:config
   ;;   ;; User customization for Verilog mode

@@ -103,4 +103,31 @@ Version 2016-08-09"
 
 
 
+
+;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (setq gse-color-list '(hi-yellow hi-green hi-blue hi-pink))				  ;;
+;; (setq gse-color-index 0)								  ;;
+;; (setq gse-color-list-length (length gse-color-list))					  ;;
+;; 											  ;;
+;; (defun gse/toggle-highlight-tap ()							  ;;
+;;   "Toggle highlight pattern at the point"						  ;;
+;;   (interactive)									  ;;
+;;   (if (and (listp (get-text-property (point) 'face))					  ;;
+;;            (memq (car (get-text-property (point) 'face)) gse-color-list))		  ;;
+;;       (unhighlight-regexp (thing-at-point 'symbol))					  ;;
+;;     (progn										  ;;
+;;       (highlight-regexp (thing-at-point 'symbol) (nth gse-color-index gse-color-list)) ;;
+;;       (setq gse-color-index (+ gse-color-index 1))					  ;;
+;;       (if (>= gse-color-index gse-color-list-length)					  ;;
+;;           (setq gse-color-index 0))							  ;;
+;;       )))										  ;;
+;; 											  ;;
+;; (global-set-key [f7] 'gse/toggle-highlight-tap)					  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
 (provide 'config-functions)
+

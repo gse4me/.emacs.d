@@ -26,6 +26,9 @@
 (global-set-key [f5] 'gse-revert-buffer)
 
 
+(global-set-key [mouse-8] 'highlight-symbol-at-point)
+
+
 
 
 

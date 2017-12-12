@@ -22,6 +22,7 @@
  global-hl-line-mode                 t
  truncate-lines                      t
  visual-line-mode                    t
+ split-width-threshold               0
  apropos-do-all                      t
  load-prefer-newer                   t
  frame-title-format                  "%b %+%+ %f"
@@ -62,7 +63,7 @@
  )
 
 (fset 'yes-or-no-p 'y-or-n-p)
-(global-auto-revert-mode t)
+;;(global-auto-revert-mode t)
 
 
 ;; Disable toolbar & menuba
@@ -99,6 +100,8 @@
 
 (define-key isearch-mode-map (kbd "DEL") 'isearch-del-char)
 
+
+(global-visual-line-mode 1)
 
 (provide 'config-base)
 ;;; base ends here
