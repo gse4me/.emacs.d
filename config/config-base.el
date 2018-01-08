@@ -101,6 +101,8 @@
 (define-key isearch-mode-map (kbd "DEL") 'isearch-del-char)
 
 
+(global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+
 (global-visual-line-mode 1)
 
 (provide 'config-base)

@@ -185,14 +185,14 @@
   (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
 
 
-(use-package zoom-frm
+(use-package zoom-frm ;;zooms ALL windows, even the modeline; good for presentations
   :ensure t
   :bind (("C-c C-+" . zoom-in/out)
          ("C-c C--" . zoom-in/out)
          ("C-c C-0" . zoom-in/out)
          ("C-c C-=" . zoom-in/out)
-	 ("<C-mouse-4>" . zoom-in)
-	 ("<C-mouse-5>" . zoom-out)
+	 ;;	 ("<C-mouse-4>" . zoom-in)
+	 ;;	 ("<C-mouse-5>" . zoom-out)
 	 ))
 
 (provide 'config-extensions)

@@ -34,16 +34,6 @@
   :defer t
   )
 
-(use-package p4  
-  :init
-  (setq p4-executable my-p4-ex)
-  (setq p4-global-key-prefix (kbd "C-x p"))
-  :config
-  ;;(setq p4-do-find-file nil )
-  (add-hook 'p4-mode-hook
-	    (lambda () (add-hook 'read-only-mode-hook 'gse-p4-edit-if-necessary nil t)))
-  
-  )
 
 
 (provide 'config-vcs)

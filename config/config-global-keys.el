@@ -4,8 +4,11 @@
 ;;(global-set-key (kbd "[SHORTCUT]") '[FUNCTION])
 
 ;; on Linux, make Control+wheel do increase/decrease font size
-;;(global-set-key (kbd "<C-mouse-4>") 'text-scale-increase)
-;;(global-set-key (kbd "<C-mouse-5>") 'text-scale-decrease)
+
+;;
+
+(global-set-key (kbd "<C-mouse-4>") 'text-scale-increase)
+(global-set-key (kbd "<C-mouse-5>") 'text-scale-decrease)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-o") 'occur)
 

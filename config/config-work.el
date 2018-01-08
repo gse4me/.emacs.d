@@ -1,3 +1,18 @@
+;;;;;; perforceee ;;;;;;;
+
+(use-package p4  
+  :init
+  (setq p4-executable my-p4-ex)
+  (setq p4-global-key-prefix (kbd "C-x p"))
+  :config
+  ;;(setq p4-do-find-file nil )
+  (add-hook 'p4-mode-hook
+	    (lambda () (add-hook 'read-only-mode-hook 'gse-p4-edit-if-necessary nil t)))
+  
+  )
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;; Default modes for various extensions ;;;;;;;;;
 
@@ -110,9 +125,9 @@
   (setq mode-name "gse-kos-mode") 
   )
 
-(add-to-list 'auto-mode-alist '("\\.koslog" . gse-kos-mode))
-(add-to-list 'auto-mode-alist '("\\.klog" . gse-kos-mode))
-(add-to-list 'auto-mode-alist '("\\.kos" . gse-kos-mode))
+(add-to-list 'auto-mode-alist '("\\.koslog$" . gse-kos-mode))
+(add-to-list 'auto-mode-alist '("\\.klog$" . gse-kos-mode))
+(add-to-list 'auto-mode-alist '("\\.kos$" . gse-kos-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;; DSP log is not used anymore;;;;;;;;;;;;;;;;;;;;;
 

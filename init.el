@@ -40,7 +40,7 @@
   (require 'config-extensions)
   (require 'config-org)
   (require 'config-ivy)
-  (require 'config-vcs) ;;git/p4
+  (require 'config-vcs) ;;git
   (require 'config-functions)
   (require 'config-search)
   (require 'config-projects)
